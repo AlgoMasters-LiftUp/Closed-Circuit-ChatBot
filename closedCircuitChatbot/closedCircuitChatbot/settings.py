@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+kbih#awk(6eb-y7%pe=4-(e)+0u*!lrmyb&6(rlmqs=stw*mi'
+# SECRET_KEY = 'django-insecure-+kbih#awk(6eb-y7%pe=4-(e)+0u*!lrmyb&6(rlmqs=stw*mi'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'changeme')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -77,10 +79,14 @@ WSGI_APPLICATION = 'closedCircuitChatbot.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+      'ENGINE': 'djongo',
+      'NAME': 'CCCuserdb',
+      'HOST': 'localhost',
+      'PORT': 27017,
+  }
+ }
+# DEFAULT_FILE_STORAGE = 'storages.backends.mongodb.GridFSStorage'
+# CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Password validation
@@ -101,6 +107,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    # 'mongoengine.django.auth.MongoEngineBackend',
+    # Add any other authentication backends if needed
+]
+
+MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
+
+LOGIN_URL = 'user_app/login_register/'  
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
