@@ -21,7 +21,7 @@
             </div>
             <form id="Login" class="input-group" action="{% url 'Login' %}" method="POST">
                 {% csrf_token %}
-               <input type="text" class="input-field" placeholder="Enter username" name="username" required>
+               <input type="email" class="input-field" placeholder="Enter email" name="email" required>
                <input type="password" class="input-field" placeholder="Enter password" name="password" required>
                <a href="#">Need help?</a>
                <button type="submit" class="submit-btn" name="form_type", value="Login">Login</button>

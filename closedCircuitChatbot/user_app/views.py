@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from . import authentication
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import SignupForm
@@ -15,18 +17,41 @@ from django.core.mail import EmailMessage
 from django.apps import apps
 
 from django.contrib.auth.models import Group 
+
 # Create your views here.
 
 def index(request):
     form = SignupForm()  
     return render(request, 'login_register.html', {'form': form} )
 
-def login(request):
-    return render(request, 'chatbot/home.html') 
+def Login(request):
+    if request.method == 'POST':  
 
-# email verification 
-# sending email to the user
-def register(request):
+        form_type = request.POST.get('form_type', None)
+
+        if form_type == 'Login':
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            
+            # Call the EmailAuthBackend class and its authenticate method
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
+                login(request, user)
+                home_url = reverse('chatbot_app:home')
+                return redirect(home_url)
+            else:
+                return render(request, 'deneme.html', {"error":"user is none"})
+        
+        return render(request, 'deneme.html', {"error":"form type is not login"})
+    return render(request, 'deneme.html', {"error":"it is not post"})
+    
+#  if user is not None:
+#         login(request,user)
+#         return Response({'ok':'True'},status=status.HTTP_200_OK)
+#     else:
+#         return Response({'ok':'False'},status=status.HTTP_401_UNAUTHORIZED)
+
+def Register(request):
     if request.method == 'POST':  
 
         form_type = request.POST.get('form_type', None)
