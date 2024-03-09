@@ -18,6 +18,7 @@ from django.apps import apps
 
 from django.contrib.auth.models import Group 
 
+from django.contrib import messages
 # Create your views here.
 
 def index(request):
@@ -33,23 +34,21 @@ def Login(request):
             email = request.POST.get('email')
             password = request.POST.get('password')
             
-            # Call the EmailAuthBackend class and its authenticate method
             user = authenticate(request, email=email, password=password)
             if user is not None:
                 login(request, user)
                 home_url = reverse('chatbot_app:home')
                 return redirect(home_url)
             else:
-                return render(request, 'deneme.html', {"error":"user is none"})
+                messages.add_message(message = "Email or password is wrong. Try again...")
+                return render(request, 'login_register.html')
+        else:
+            messages.add_message("Form type is not as expected.")
+            return render(request, 'login_register.html')
         
-        return render(request, 'deneme.html', {"error":"form type is not login"})
-    return render(request, 'deneme.html', {"error":"it is not post"})
-    
-#  if user is not None:
-#         login(request,user)
-#         return Response({'ok':'True'},status=status.HTTP_200_OK)
-#     else:
-#         return Response({'ok':'False'},status=status.HTTP_401_UNAUTHORIZED)
+    form = SignupForm()
+    return render(request, 'login_register.html', {'form': form})
+
 
 def Register(request):
     if request.method == 'POST':  
@@ -67,6 +66,7 @@ def Register(request):
                 'password2': request.POST.get('password2', None)
             }
             form = SignupForm(data)  
+            
             if form.is_valid():  
 
                 user = form.save(commit=False)  
@@ -76,11 +76,22 @@ def Register(request):
             else:
                 form_error = form.errors
                 form = SignupForm()
-                return render(request, 'deneme.html', {'form': form, 'error':form_error})
+                messages.add_message(message = form_error)
+                return render(request, 'login_register.html', {'form': form})
                 
         else:
             form = SignupForm()  
-            return render(request, 'deneme.html', {'form': form, 'error':'form type is not as expected'})
+            messages.add_message(message = 'form type is not as expected')
+            return render(request, 'deneme.html', {'form': form})
+        
     form = SignupForm()
-    return render(request, 'login_register.html')
+    return render(request, 'login_register.html', {'form': form} )
 
+
+
+
+#  if user is not None:
+#         login(request,user)
+#         return Response({'ok':'True'},status=status.HTTP_200_OK)
+#     else:
+#         return Response({'ok':'False'},status=status.HTTP_401_UNAUTHORIZED)
