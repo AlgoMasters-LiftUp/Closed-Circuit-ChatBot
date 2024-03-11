@@ -40,10 +40,10 @@ def Login(request):
                 home_url = reverse('chatbot_app:home')
                 return redirect(home_url)
             else:
-                messages.add_message(message = "Email or password is wrong. Try again...")
+                messages.error(request, message = "Email or password is wrong. Try again...")
                 return render(request, 'login_register.html')
         else:
-            messages.add_message("Form type is not as expected.")
+            messages.error(request, "Form type is not as expected.")
             return render(request, 'login_register.html')
         
     form = SignupForm()
@@ -56,17 +56,24 @@ def Register(request):
         form_type = request.POST.get('form_type', None)
 
         if form_type == 'Register': # buttons name is checking
-            username = request.POST.get('first_name', None) + "_" + request.POST.get('last_name', None)
+            first_name = request.POST.get('first_name', None)
+            last_name = request.POST.get('last_name', None)
+            email = request.POST.get('email', None)
+            password1 = request.POST.get('password1', None)
+            password2 = request.POST.get('password2', None)
+            username = first_name + "_" + last_name  # Kullanıcı adını oluştur
+
             data = {
                 'username': username,
-                'first_name': request.POST.get('first_name', None),
-                'last_name': request.POST.get('last_name', None),
-                'email': request.POST.get('email', None),
-                'password1': request.POST.get('password1', None),
-                'password2': request.POST.get('password2', None)
+                'first_name': first_name,
+                'last_name': last_name,
+                'email': email,
+                'password1': password1,
+                'password2': password2
             }
             form = SignupForm(data)  
-            
+
+
             if form.is_valid():  
 
                 user = form.save(commit=False)  
@@ -74,18 +81,18 @@ def Register(request):
                 user.username = username 
                 user.save()
             else:
-                form_error = form.errors
+                messages.error(request, message=form.errors) 
                 form = SignupForm()
-                messages.add_message(message = form_error)
-                return render(request, 'login_register.html', {'form': form})
+                return redirect('index')
+                # return render(request, 'login_register.html', {'form': form})
                 
         else:
             form = SignupForm()  
-            messages.add_message(message = 'form type is not as expected')
-            return render(request, 'deneme.html', {'form': form})
+            messages.error(request, message = 'form type is not as expected')
+            return redirect('index')
+            # return render(request, 'login_register.html', {'form': form})
         
-    form = SignupForm()
-    return render(request, 'login_register.html', {'form': form} )
+    return redirect('index')
 
 
 
@@ -95,3 +102,23 @@ def Register(request):
 #         return Response({'ok':'True'},status=status.HTTP_200_OK)
 #     else:
 #         return Response({'ok':'False'},status=status.HTTP_401_UNAUTHORIZED)
+
+
+            # email = "heyy@gmail.com"
+            # if email: 
+            #     users = User.objects.filter(email=email)
+            #     message = users
+            #     message2 = users.exists()
+            #     return render(request, "deneme.html", {'messages': [message, message2]})
+            #
+
+
+            # email = "hey@gmail.com"
+            # if email: 
+            #     users = User.objects.filter(email=email)
+            #     message = users
+            #     if users:
+            #         message2 = "yes"
+            #     else:
+            #         message2 = "no"
+            #     return render(request, "deneme.html", {'messages': [message, message2]})
