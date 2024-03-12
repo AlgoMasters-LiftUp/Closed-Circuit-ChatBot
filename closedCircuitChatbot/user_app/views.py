@@ -25,6 +25,10 @@ def index(request):
     form = SignupForm()  
     return render(request, 'login_register.html', {'form': form} )
 
+def UserError(request):
+    form = SignupForm()  
+    return render(request, 'login_register.html', {'form': form} )
+
 def Login(request):
     if request.method == 'POST':  
 
@@ -41,13 +45,12 @@ def Login(request):
                 return redirect(home_url)
             else:
                 messages.error(request, message = "Email or password is wrong. Try again...")
-                return render(request, 'login_register.html')
+                return redirect("index")
         else:
             messages.error(request, "Form type is not as expected.")
-            return render(request, 'login_register.html')
+            return redirect("index")
         
-    form = SignupForm()
-    return render(request, 'login_register.html', {'form': form})
+    return redirect("index")
 
 
 def Register(request):
@@ -82,17 +85,13 @@ def Register(request):
                 user.save()
             else:
                 messages.error(request, message=form.errors) 
-                form = SignupForm()
-                return redirect('index')
-                # return render(request, 'login_register.html', {'form': form})
+                return redirect("index")
                 
         else:
-            form = SignupForm()  
             messages.error(request, message = 'form type is not as expected')
-            return redirect('index')
-            # return render(request, 'login_register.html', {'form': form})
+            return redirect("index")
         
-    return redirect('index')
+    return redirect("index")
 
 
 
