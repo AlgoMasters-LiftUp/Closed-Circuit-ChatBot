@@ -9,7 +9,7 @@ from chatbot_app import views as chatbot_app
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('user_app.urls')),
-    path("user/", include('user_app.urls')),
-    path("botai/", include('chatbot_app.urls')),
+    path('', include('user_app.urls'), name="user_app"),
+    path("user/", include('user_app.urls'), name="user_app"),
+    path("botai/", include('chatbot_app.urls'), name="chatbot_app"),
 ]
