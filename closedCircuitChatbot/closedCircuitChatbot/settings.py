@@ -109,6 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
+    'user_app.authentication.EmailAuthBackend'
     # 'mongoengine.django.auth.MongoEngineBackend',
     # Add any other authentication backends if needed
 ]
