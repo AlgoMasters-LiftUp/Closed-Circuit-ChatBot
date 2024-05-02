@@ -6,7 +6,4 @@ pymongo==3.12.3
 pytz==2023.3.post1
 django-storages==1.14.2
 
-
-
--------
-asgiref, sqlparse, tzdata
+# asgiref, sqlparse, tzdata
