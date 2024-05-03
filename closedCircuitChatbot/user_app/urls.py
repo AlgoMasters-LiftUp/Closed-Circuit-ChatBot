@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 from chatbot_app import views as chatbot_views
 
-# app_name = 'user_app'
+app_name = 'user_app'
 
 
 urlpatterns = [

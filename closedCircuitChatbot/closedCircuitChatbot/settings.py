@@ -78,12 +78,12 @@ WSGI_APPLICATION = 'closedCircuitChatbot.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-#     'default': {
-#       'ENGINE': 'djongo',
-#       'NAME': 'CCCuserdb',
-#       'HOST': 'localhost',
-#       'PORT': 27017,
-#   }
+    'default': {
+      'ENGINE': 'djongo',
+      'NAME': 'CCCuserdb',
+      'HOST': 'localhost',
+      'PORT': 27017,
+  }
  }
 # DEFAULT_FILE_STORAGE = 'storages.backends.mongodb.GridFSStorage'
 # CORS_ORIGIN_ALLOW_ALL = True

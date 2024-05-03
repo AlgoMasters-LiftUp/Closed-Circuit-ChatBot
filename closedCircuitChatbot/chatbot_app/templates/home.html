@@ -69,6 +69,13 @@
                     <div class="message">
                         <p>boTAI: I'm good.?</p>
                     </div>
+                    {% if messages %}
+                    {% for msg in messages%}
+                    <div class="message">
+                        <p>{{ msg }}</p>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
                     <!-- Yeni mesajları buraya ekleyebilirsiniz -->
                 </div>
             </div>

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 # Create your views here.
 
@@ -12,23 +13,28 @@ def home(request):
     return render(request, 'home.html') 
 
 
-def handlePrompt(request):
+def deneme(request):
+    context = {}
+    return render(request, 'deneme.html', context) 
+
+def handlePrompt(request):    
     if request.method == 'POST':  
 
         form_type = request.POST.get('user_prompt_form', None)
 
         if form_type == 'user_prompt_ready':
             prompt = request.POST.get('user_prompt', None)
-            context = {}
+            
             if prompt:
-                context.update({"prompt": prompt})
+                messages.success(request=request,message=f"prompt: {prompt}")
             else:
-                context.update({"prompt": "prompt yok"})
-            context.update({"bidi":"bidi"})
+                messages.error(request=request,message=f"prompt yok", level=5)
         
-            return render(request, 'deneme.html', context) 
+            return redirect("chatbot_app:home")
         else:
-            return redirect("home")
+            return redirect("chatbot_app:home")
     else:
-        return redirect("home")
+        return render(request, 'login_register.html')
+    
+
     
