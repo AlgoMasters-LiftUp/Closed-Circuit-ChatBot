@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from .RAGconfig import RAG
 
-# Create your views here.
+rag = RAG()
 
 
 def home(request):
@@ -24,11 +25,20 @@ def handlePrompt(request):
 
         if form_type == 'user_prompt_ready':
             prompt = request.POST.get('user_prompt', None)
+
+            rag_rsp = rag.ragQA(prompt)
+            response = rag_rsp["answer"]
+            index = response.find("Assistant:")
+            if index != -1:
+                human_part = response[index:]
+            else:
+                human_part=  "Cevap bulunamadı."
             
             if prompt:
                 messages.success(request=request,message=f"prompt: {prompt}")
+                messages.success(request=request,message=f"response: {human_part}")
             else:
-                messages.error(request=request,message=f"prompt yok", level=5)
+                messages.error(request=request,message=f"prompt yok")
         
             return redirect("chatbot_app:home")
         else:
