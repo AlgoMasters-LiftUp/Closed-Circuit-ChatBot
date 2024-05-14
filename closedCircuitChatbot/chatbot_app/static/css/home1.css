@@ -1,0 +1,158 @@
+.navbar {
+    width: auto;
+    height: 150px;
+    background-size: 100% 180%; /* Resmi kaplamak için */
+    background-position: center; /* Resmi ortalamak için */
+    border-radius: 10px;
+}
+
+.navbar-brand  img{
+    width: 70px; /* Genişlik ayarı */
+    height: auto; /* Yükseklik otomatik ayarı, oranları korumak için */
+    max-width: 100px; /* Logo maksimum genişliği */
+}
+
+.navbar-brand {
+    font-size: 20px;
+    max-width: 200px; /* Yazı maksimum genişliği */
+    white-space: nowrap; /* Yazının birden fazla satıra geçmesini engeller */
+    overflow: hidden; /* Taşma durumunda içeriği gizler */
+    text-overflow: ellipsis; /* Taşma durumunda yazıyı keser ve üç nokta ile gösterir */
+}
+
+.bi.bi-person-circle{
+    color: black;
+    width: 20px;
+    height: 20px;
+}
+
+.navbar-text{
+    font-size: 20px;
+}
+
+.sidenav {
+    height: 100vh;
+    width: 250px; /* Adjust as needed */
+    position: fixed;
+    right: 0;
+    background-color:#FDF9F2;
+    color: #A7915B;
+    overflow-x: hidden;
+    padding-top: 20px;
+    border-radius: 20px;
+    overflow-y: auto;
+    position: absolute;
+  }
+
+.sidenav a {
+    text-decoration: none; /* Altı çizili olmayan link */
+    color: #ADAAAA;
+    font-size: 20px;
+    transition: 0.3s;
+    min-height: 0;
+}
+
+.sidenav-header{
+    padding: 10px;
+    text-align: right;
+    padding-right:25px;
+}
+
+.chat-header{
+    border-bottom: 2px solid #A7915B;
+    margin-bottom: 8px;
+    color: #A7915B;;
+    padding-bottom: 5px; /* Yazıdan altta boşluk bırakmak için */
+    padding-right: 10px; /* Sağdan boşluk bırakmak için */
+    padding-left: 10px; /* Soldan boşluk bırakmak için */
+}
+
+.sidenav li {
+    padding: 8px 16px;
+    border-bottom: 1px solid #ADAAAA;
+    font-size: 14px;
+
+}
+
+.chat-container {   
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px; /* Max width if needed */
+    height: 500px;
+    padding: 20px;
+    padding-top: 50px;
+    margin-top: 40px;
+    margin-left: 40px;
+    overflow-y: auto;
+  }
+
+  /* Chat box styles (for demonstration) */
+.message-container {
+    width: 90%;
+    height:600px;
+    margin-left: 40px;
+    margin-top: 0px;
+    
+  }
+
+.message{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.input-container {
+    width: 70%;
+    height: 0px;
+    margin-left: 150px;
+    margin-top: 300px; 
+    display:flex;
+    align-items: center;
+}
+
+.btn-icon{
+    color: #A7915B;
+}
+
+.logout-button{
+    text-align: right;
+    position: absolute;
+    bottom: 10px;
+}
+
+@media (max-width: 770px) {
+    .navbar-text,
+    .sidenav {
+      display: none;
+    }
+  }
+
+/* Küçük ekranlar için stil ayarı */
+@media (max-width: 1450px) {
+    .chat-container,
+    .chat-box {
+        width: 75%; /* Küçük ekranlarda container'ı daha dar yap */
+    }
+}
+
+@media (max-width: 1350px) {
+    .chat-container,
+    .chat-box {
+        width: 65%; /* Küçük ekranlarda container'ı daha dar yap */
+    }
+}
+
+/* Daha küçük ekranlar için stil ayarı */
+@media (max-width: 950px) {
+    .chat-container,
+    .chat-box {
+        width: 55%; /* Daha küçük ekranlarda container'ı daha da dar yap */
+    }
+}
+
+@media (max-width: 770px) {
+    .chat-container,
+    .chat-box {
+        width: 75%; /* Daha küçük ekranlarda container'ı daha da dar yap */
+    }
+}
